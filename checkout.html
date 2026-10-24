@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Left Bank Bourbon: Checkout</title>
+<meta name="description" content="Private sales demo: Left Bank Bourbon with AccelPay checkout.">
+<link rel="icon" href="assets/compass.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<div class="ribbon">Private sales demo for Left Bank Bourbon · AccelPay checkout concept <button id="demo-notes-toggle">How this works</button></div>
+<header class="site"><div class="wrap">
+  <span class="tag-l">&bull; DISTILLED IN KENTUCKY &bull;</span>
+  <a class="brand" href="index.html" aria-label="Left Bank Bourbon home"><img src="assets/logo-header.png" alt="Left Bank"></a>
+  <span class="tag-r">&bull; BOTTLED IN LOUISIANA &bull;</span>
+  <nav class="main">
+    <a href="index.html#legend">The Legend</a><a href="index.html#journey">The Journey</a><a href="index.html#how">How it works</a><a href="index.html#shop" class="on">Buy Online</a>
+    <button class="cart-pill" data-lce-cart-toggle-button aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span data-lce-cart-items-count>0</span></button>
+  </nav>
+  <button id="burger" aria-label="Menu">&#9776;</button>
+</div></header>
+
+<main class="co"><div class="wrap">
+<div id="confirm" class="confirm" hidden><h1>Thank you</h1><p>Demo order <strong id="ord-no"></strong>. Nothing was charged and no order was placed. In production, the licensed retailer would confirm the order and send tracking.</p><a class="btn" href="index.html#shop">Back to shop</a></div>
+<div class="co-grid" id="co-main">
+  <form id="co-form" novalidate>
+    <h2>Contact</h2>
+    <div class="field"><label for="co-email">Email</label><input id="co-email" type="email" placeholder="you@example.com"></div>
+    <h2>Ship to</h2>
+    <div class="row2"><div class="field"><label>First name</label><input placeholder="First name"></div><div class="field"><label>Last name</label><input placeholder="Last name"></div></div>
+    <div class="field"><label>Street address</label><input placeholder="Street address"></div>
+    <div class="row3"><div class="field"><label>City</label><input placeholder="City"></div><div class="field"><label for="co-state">State</label><select id="co-state" disabled><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select></div><div class="field"><label for="co-zip">ZIP</label><input id="co-zip" placeholder="ZIP"></div></div>
+    <p class="fine" style="margin-top:0">State is set by the delivery address you entered on the product page. <button type="button" class="linkbtn" data-addr-change>Change address</button></p>
+    <h2>Fulfilled by</h2>
+    <div id="co-fulfil"></div>
+    <label class="check"><input type="checkbox" id="is-gift"> This is a gift</label>
+    <div id="gift-fields" hidden><div class="field"><label>Gift message</label><textarea rows="3" placeholder="Add a note"></textarea></div></div>
+    <h2>Payment</h2>
+    <div class="pay"><div class="fake">Card details are collected securely by AccelPay Payments. Disabled in this demo.</div></div>
+    <label class="check"><input type="checkbox" required id="age"> I confirm I am 21 or older. An adult signature is required on delivery.</label>
+    <button class="btn block" id="place-order" type="submit">Place order</button>
+    <div class="powered">Secure checkout by AccelPay</div>
+  </form>
+  <aside id="co-summary"></aside>
+</div>
+</div></main>
+<script>
+  (function(){
+    if (new URLSearchParams(location.search).get('confirmed')) {
+      document.getElementById('co-main').hidden = true;
+      var c = document.getElementById('confirm'); c.hidden = false;
+      try { var o = JSON.parse(sessionStorage.getItem('lb-order')||'{}'); document.getElementById('ord-no').textContent = (o.orderNumber||'') + (o.total ? ' for $' + (o.total/100).toFixed(2) : ''); } catch(e) {}
+    }
+    var f=document.getElementById('co-form');
+    f.addEventListener('submit', function(e){ if(!document.getElementById('age').checked){ e.preventDefault(); e.stopImmediatePropagation(); document.getElementById('age').focus(); alert('Please confirm you are 21 or older.'); } }, true);
+  })();
+</script>
+<footer class="site"><div class="wrap">
+  <div class="cols">
+    <div><img class="logotype" src="assets/logo-header.png" alt="Left Bank Distilled Spirits"><p class="muted" style="margin-top:14px;max-width:34ch">#TheWorldofWhisky &middot; #TheStoryofBourbon. Distilled in Kentucky, bottled in Louisiana.</p></div>
+    <div><h4>Shop</h4><a href="product.html?p=lb-small-batch">Left Bank Small Batch</a><a href="product.html?p=lb-single-cask">Left Bank Single Cask</a></div>
+    <div><h4>Help</h4><a href="index.html#how">How ordering works</a><a href="checkout.html">Checkout</a></div>
+    <div><h4>Follow</h4><a href="https://www.instagram.com/leftbankwhisky/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/leftbankwhisky/" target="_blank" rel="noopener">Facebook</a></div>
+  </div>
+  <div class="legal"><span>Must be 21+ to purchase. Drink wisely. Alcohol is sold and fulfilled by licensed retailers.</span><span>Checkout powered by AccelPay</span></div>
+</div></footer>
+<div id="scrim"></div>
+<aside id="drawer" aria-label="Cart"><div class="dh"><h3>Your cart</h3><button id="drawer-close" aria-label="Close cart">&times;</button></div><div id="drawer-items"></div><div id="drawer-foot"></div></aside>
+<aside id="demo-notes" aria-label="About this demo"><button class="x" data-close-notes aria-label="Close">&times;</button>
+<h4>What this demo shows</h4>
+<ul>
+<li>This is leftbankbourbon.com with the AccelPay cart in place of the Bottle Nexus buy button, so bottles sell on your own domain. It works on your Wix site as it is.</li>
+<li>Every order is sold and fulfilled by a licensed retailer in the buyer&#39;s state, from a network of 3,500+ licensed retail locations reaching 40+ states.</li>
+<li>No retailer in our network stocks Left Bank today, so every route here is a demo route, connected at launch. Prices shown are your current online prices. Licensed retailers set the final retail price.</li>
+<li>Instant delivery runs through Gopuff (about 30 minutes) and DoorDash from local retailers, wherever a bottle is stocked nearby.</li>
+<li>Launch takes about one week, with no per-order charge to Left Bank.</li>
+<li>Reordering is built in. We track depletions at each retailer and flag reorders with suggested POs when stock runs low. For brands distributed by Southern Glazer&#39;s, we&#39;re setting up a pilot to send those reorders straight into Proof.</li>
+<li>Brands that switch their white-label store to our plugins (the AccelPay or LiquidCommerce cart, or our native Shopify integration) automatically receive advertising credit on ReserveBar.com and Minibar.</li>
+<li>Every brand gets a ReserveBar.com listing. Left Bank is not on ReserveBar.com today.</li>
+<li>&quot;Demo route&quot; retailers, fees and tax are illustrative. No order is ever placed.</li>
+</ul></aside>
+<div id="toast" role="status"></div>
+<script src="elements-config.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
